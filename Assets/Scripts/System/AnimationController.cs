@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerAnimationController : MonoBehaviour
+public class AnimationController : MonoBehaviour
 {
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -8,6 +8,10 @@ public class PlayerAnimationController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (animator == null)
+        {
+            Debug.LogError("Animator component not found on " + gameObject.name);
+        }
     }
 
     void Update()
@@ -25,18 +29,19 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool("IsRun", false);
     }
 
-    public void PlayMoveAnimation(Vector2 direction)
+    public void PlayMoveAnimation()
     {
+
         animator.SetBool("IsRun", true);
     }
-
-    public void UpdateFacingDirection(float directionX)
+    
+    public void UpdateFacingDirection()
     {
-        if (directionX > 0)
+        if (InputManager.Instance.MoveInput.x > 0)
         {
             spriteRenderer.flipX = false;
         }
-        else if (directionX < 0)
+        else if (InputManager.Instance.MoveInput.x < 0)
         {
             spriteRenderer.flipX = true;
         }

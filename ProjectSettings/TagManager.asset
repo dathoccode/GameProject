@@ -8,10 +8,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
-  - Enemy
+  - Player
   - Spike
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 252824397
+    locked: 0
+  - name: UI
+    uniqueID: 2839523881
     locked: 0
   m_RenderingLayers:
   - Default

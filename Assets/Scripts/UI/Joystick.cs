@@ -10,9 +10,6 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     private RectTransform handle;
     private Vector2 inputVector;
 
-    // properties
-    public float Horizontal => inputVector.x;
-    public float Vertical => inputVector.y;
     public Vector2 Direction => inputVector;
 
     public void OnDrag(PointerEventData eventData)
