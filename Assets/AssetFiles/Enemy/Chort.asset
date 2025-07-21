@@ -15,9 +15,9 @@ MonoBehaviour:
   enemyName: Chort
   enemyHealth: 100
   enemySpeed: 3
-  enemyCollideDamage: 0
-  enemyAttackDamage: 0
-  enemyDefense: 0
+  enemyCollideDamage: 5
+  enemyAttackDamage: 15
+  enemyDefense: 10
   enemySprite: {fileID: 21300000, guid: bc98f9be4f6a2f446ba9418969961c8b, type: 3}
   runAnimation: {fileID: 7400000, guid: 0a1222ebda8ad794a9245939cc3f0f84, type: 2}
   idleAnimation: {fileID: 0}

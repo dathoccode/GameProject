@@ -6,11 +6,8 @@ public class EnemyData : ScriptableObject
     public string enemyName;
     public float enemyHealth;
     public float enemySpeed;
-    public float enemyCollideDamage;
     public float enemyAttackDamage;
     public float enemyDefense;
     public Sprite enemySprite;
-
-    public AnimationClip runAnimation;
-    public AnimationClip idleAnimation;
+    public Animator enemyAnimator;
 }

@@ -4,7 +4,6 @@ public class EnemyAI : MonoBehaviour
 {
     EnemyController enemyController;
 
-
     //support patrolling
     [SerializeField] float patrolRange = 5f; // Range for patrolling
     private Vector2 basePoint; // Point to return to after patrolling
@@ -35,9 +34,9 @@ public class EnemyAI : MonoBehaviour
     private void EnemyPatrol()
     {
         // If player is detected, stop patrolling
-        if (enemyController.status == Constant.ENEMY_STATUS_CHASING)
+        if (enemyController.enemyStatus == Constant.ENEMY_STATUS_CHASING)
         {
-            patrolPoint = basePoint; 
+            patrolPoint = basePoint;
             return;
         }
         //get random point within patrol range
@@ -53,23 +52,22 @@ public class EnemyAI : MonoBehaviour
 
         // Move towards the random point
         Vector2 direction = (patrolPoint - enemyController.rb.position).normalized;
-        enemyController.rb.MovePosition(enemyController.rb.position + direction * enemyController.moveSpeed * Time.fixedDeltaTime);
+        enemyController.Move(direction);
     }
 
     private void DetectPlayer()
     {
-    
         if (Vector2.Distance(transform.position, player.position) <= detectionRange)
         {
-            enemyController.status = Constant.ENEMY_STATUS_CHASING;
+            enemyController.enemyStatus = Constant.ENEMY_STATUS_CHASING;
             Vector2 direction = (player.position - transform.position).normalized;
-            enemyController.rb.MovePosition(enemyController.rb.position + direction * enemyController.moveSpeed * Time.fixedDeltaTime);
+            enemyController.Move(direction);
         }
 
         //give up chasing if player is too far away or get too far from base point
         if (Vector2.Distance(transform.position, player.position) > detectionRange || Vector2.Distance(player.position, basePoint) >= chasingRange)
         {
-            enemyController.status = Constant.ENEMY_STATUS_PATROLLING;
+            enemyController.enemyStatus = Constant.ENEMY_STATUS_PATROLLING;
         }
     }
 }
