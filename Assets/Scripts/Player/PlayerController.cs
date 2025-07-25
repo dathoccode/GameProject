@@ -19,7 +19,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     
     // Status variables
-    public int playerStatus { get; private set; }
+    public int PlayerStatus { get; private set; }
+    public float MaxHealth { get; private set; }
+    public float MaxMana { get; private set; }
 
     // Attack variables
     [SerializeField] Weapon currentWeapon;
@@ -39,13 +41,30 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitializeComponents();
+        InitializeData();
+
+        
+    }
+
+    private void InitializeData()
+    {
+        //this is temporary data initialization, it should be stored in database or scriptable object
+        MaxHealth = 100f; 
+        MaxMana = 50f;
+
+        PlayerStatus = Constant.PLAYER_STATUS_IDLE;
+        healthBar.SetValue(MaxHealth);
+        manaBar.SetValue(MaxMana);
+    }
+
+    private void InitializeComponents()
+    {
         animationHandler = GetComponent<PlayerAnimationHandler>();
         knockBackHandler = GetComponent<KnockBackHandler>();
         rb = GetComponent<Rigidbody2D>();
-
-        // Initialize player status
-        playerStatus = Constant.PLAYER_STATUS_IDLE;
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -62,11 +81,11 @@ public class PlayerController : MonoBehaviour
         if (knockBackHandler.isBeingKnockedBack) return;
         if (InputManager.Instance.MoveInput == Vector2.zero)
         {
-            playerStatus = Constant.PLAYER_STATUS_IDLE;
+            PlayerStatus = Constant.PLAYER_STATUS_IDLE;
             return;
         }
         animationHandler.UpdateFacingDirection();
-        playerStatus = Constant.PLAYER_STATUS_RUNNING;
+        PlayerStatus = Constant.PLAYER_STATUS_RUNNING;
         rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * InputManager.Instance.MoveInput);
     }
 
@@ -87,10 +106,9 @@ public class PlayerController : MonoBehaviour
         knockBackHandler.ApplyKnockBack(source);
         if (healthBar.currentValue <= 0)
         {
-            playerStatus = Constant.PLAYER_STATUS_DEAD;
+            PlayerStatus = Constant.PLAYER_STATUS_DEAD;
             // Handle player death logic here, e.g., play death animation, disable controls, etc.
         }
-
     }
 
 

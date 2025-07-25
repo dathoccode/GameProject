@@ -32,11 +32,11 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Vector2 source)
     {
         // Implement damage logic here
         healthBar.UpdateValue(-damage);
-        
+        knockBackHandler.ApplyKnockBack(source);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -45,8 +45,7 @@ public class EnemyController : MonoBehaviour
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
             player.TakeDamage(Constant.COLLIDER_DAMAGE, transform.position);
-            TakeDamage(Constant.COLLIDER_DAMAGE);
-            knockBackHandler.ApplyKnockBack(transform.position);
+            TakeDamage(Constant.COLLIDER_DAMAGE, other.transform.position);
         }
     }
 
@@ -61,6 +60,10 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         healthBar = transform.Find("HealthBar").GetComponent<StatBarHandler>();
         knockBackHandler = GetComponent<KnockBackHandler>();
+        if(knockBackHandler == null)
+        {
+            Debug.LogError("KnockBackHandler component is missing on " + gameObject.name);
+        }
     }
 
     private void InitializeData()

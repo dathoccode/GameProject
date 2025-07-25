@@ -11,7 +11,7 @@ public class PlayerAnimationHandler : AnimationHandler
     void Update()
     {
         //handle player animation based on player status
-        switch (PlayerController.Instance.playerStatus)
+        switch (PlayerController.Instance.PlayerStatus)
         {
             case Constant.PLAYER_STATUS_IDLE:
                 PlayIdleAnimation();

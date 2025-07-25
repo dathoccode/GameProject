@@ -1,12 +1,17 @@
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
-
-    [SerializeField] WeaponData weaponData;
+    [SerializeField] protected WeaponData weaponData;
     private Animator animator;
+    //properties
+    public string weaponName;
+    public float damage;
+    public float range;
+    public float attackSpeed;
+    public Sprite weaponSprite;
 
-    void Start()
+    protected virtual void Start()
     {
         InitializeData();
         InitializeComponents();
@@ -16,7 +21,7 @@ public class Weapon : MonoBehaviour
         // Update weapon state or handle input if necessary
     }
 
-    public void Attack()
+    public  virtual void Attack()
     {
         PlayAttackAnimation();
         // Implement attack logic here
@@ -28,18 +33,22 @@ public class Weapon : MonoBehaviour
         animator.SetTrigger("IsAttack");
     }
 
-    private void InitializeData()
+    protected virtual void InitializeData()
     {
         if (weaponData == null)
         {
             Debug.LogError("WeaponData is not assigned in the inspector.");
             return;
         }
-
+        weaponName = weaponData.weaponName;
+        damage = weaponData.damage;
+        range = weaponData.range;
+        attackSpeed = weaponData.attackSpeed;
+        weaponSprite = weaponData.weaponSprite;
         // Set other weapon properties if needed
     }
 
-    private void InitializeComponents()
+    protected virtual void InitializeComponents()
     {
         animator = GetComponent<Animator>();
 
