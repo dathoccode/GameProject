@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] EnemyData enemyData;
 
     //components
-    public Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
 
     // Enemy attributes
     float attackDamage;

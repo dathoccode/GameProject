@@ -37,14 +37,10 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    // Start is called before the first frame update
     void Start()
     {
         InitializeComponents();
         InitializeData();
-
-        
     }
 
     private void InitializeData()
@@ -65,7 +61,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Move();
@@ -91,7 +86,6 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        //TODO: call weapon attack method if currentWeapon is assigned
         if(currentWeapon == null)
         {
             Debug.LogWarning("No weapon assigned for attack.");
@@ -111,6 +105,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Weapon"))
+        {
+            Debug.Log("Weapon is set to " + collision.gameObject.name);
+            SetWeapon(collision.gameObject.GetComponent<Weapon>());
+        }
+    }
 
+    void SetWeapon(Weapon newWeapon)
+    {
+        this.currentWeapon = newWeapon;
+    }
     
 }

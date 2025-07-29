@@ -26,9 +26,12 @@ public class MeleeWeapon : Weapon
             if (enemy.CompareTag("Enemy"))
             {
                 enemy.GetComponent<EnemyController>().TakeDamage(damage, transform.position);
-                
+
             }
         }
+
+        isCoolingDown = true;
+        
     }
 
     void Update()

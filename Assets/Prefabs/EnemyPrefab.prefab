@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 9d8acbfc0b9867945ad2ecdbe38fff23, type: 2}
   rb: {fileID: 0}
-  moveSpeed: 2
+  moveSpeed: 1
   enemyStatus: 0
 --- !u!114 &3111087507929913010
 MonoBehaviour:

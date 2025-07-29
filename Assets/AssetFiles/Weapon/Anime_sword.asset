@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2093aa46165dd5845b6211a44f6e5929, type: 3}
   m_Name: Anime_sword
   m_EditorClassIdentifier: 
-  weaponName: 
-  damage: 0
-  range: 0
-  attackSpeed: 0
-  coolDown: 0
-  weaponSprite: {fileID: 0}
-  angle: 0
+  weaponName: Anime_sword
+  damage: 4
+  range: 2
+  attackSpeed: 0.3
+  weaponSprite: {fileID: 21300000, guid: d101454e15da2b14fac0bf9dffbe5aa1, type: 3}
+  angle: 60

@@ -1,9 +1,14 @@
+using System;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponData weaponData;
+
+    //components
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
     //properties
     public string weaponName;
     public float damage;
@@ -11,21 +16,29 @@ public abstract class Weapon : MonoBehaviour
     public float attackSpeed;
     public Sprite weaponSprite;
 
+    protected bool isCoolingDown;
+    protected float cooldownTimer;
+
+
     protected virtual void Start()
     {
-        InitializeData();
         InitializeComponents();
+        InitializeData();
     }
     void Update()
     {
         // Update weapon state or handle input if necessary
+        if (isCoolingDown)
+        {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0f) isCoolingDown = false;
+        }
     }
 
-    public  virtual void Attack()
+    public virtual void Attack()
     {
         PlayAttackAnimation();
-        // Implement attack logic here
-        // Logic: detect enemy in range(using weaponData.range), apply damage on enemies detected
+        Cooldown();
     }
 
     private void PlayAttackAnimation()
@@ -45,12 +58,23 @@ public abstract class Weapon : MonoBehaviour
         range = weaponData.range;
         attackSpeed = weaponData.attackSpeed;
         weaponSprite = weaponData.weaponSprite;
-        // Set other weapon properties if needed
+
+        //set default values
+        spriteRenderer.sprite = weaponSprite;
+        cooldownTimer = 0;
+        isCoolingDown = false;
     }
 
     protected virtual void InitializeComponents()
     {
         animator = GetComponent<Animator>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+    protected virtual void Cooldown()
+    {
+        cooldownTimer = 1f / attackSpeed;
+        isCoolingDown = true;
+    }
+
 }
